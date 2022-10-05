@@ -5,7 +5,7 @@ import { getFilteredRouteList } from "./utils";
 export const initialState = {
 	time: TimeRange[0],
 	playing: false,
-	timeLength: 1 * 3600 * 1000,
+	timeLength: 0,
 	routeList: [],
 	stationMap: {},
 	stationList: [],
@@ -27,6 +27,9 @@ export type State = {
 export type Action = { type: string, payload: any };
 
 export function reducer(state: State, action: Action): State {
+	if (action.type !== "setTime") {
+		console.log(action.type, action.payload);
+	}
   switch (action.type) {
 		case "loadData": 
 			const { routeList, stationMap } = action.payload;

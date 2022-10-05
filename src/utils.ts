@@ -15,7 +15,7 @@ export function getNowAsBaseDay() {
 	}
 	// join base time's date and now's time
 	let nextTime = dayjs(BaseDay).hour(now.hour()).minute(now.minute()).second(now.second())
-	console.log(nextTime.format("YYYY-MM-DD HH:mm:ss"));
+	// console.log(nextTime.format("YYYY-MM-DD HH:mm:ss"));
 	return nextTime;
 }
 
