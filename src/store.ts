@@ -1,14 +1,17 @@
 import { createContext, Dispatch } from "react";
 import { TimeRange } from "./constants";
-import { getFilteredRouteList } from "./utils";
+import { getFilteredRouteList, getNowAsBaseDay } from "./utils";
 
 export const initialState = {
 	time: TimeRange[0],
 	playing: false,
+	startingTime : 0,
+	// timeLength: 1 * 3600 * 1000,
 	timeLength: 0,
 	routeList: [],
 	stationMap: {},
 	stationList: [],
+	selectedStation: {},
 	filteredRouteList: [],
 	selectedRoute: [],
 	// routeStationSet: new Set(),
@@ -17,10 +20,12 @@ export const initialState = {
 export type State = {
 	time: number;
 	playing: boolean;
+	startingTime: number;
 	timeLength: number;
 	routeList: any[];
 	stationMap: Record<string, object>;
 	stationList: any[];
+	selectedStation: any;
 	filteredRouteList: any[];
 	selectedRoute: any[];
 };
@@ -34,6 +39,8 @@ export function reducer(state: State, action: Action): State {
 		case "loadData": 
 			const { routeList, stationMap } = action.payload;
 			const stationList = Object.entries(stationMap as Record<string, object>).map(([key, value]) => {
+				// FIXME
+				(value as any).stationName = key;
 				return { name: key, ...value };
 			});
 			// set coordinates in routes
@@ -64,18 +71,20 @@ export function reducer(state: State, action: Action): State {
 		// 	};
 		case "setTimeLength":
 			return {
-				...state,
+				...state,	
 				timeLength: action.payload,
 			};
 		case "setSelectedStation":
 			const stationName = action.payload;
 			return {
 				...state,
+				selectedStation: state.stationMap[stationName],
 				filteredRouteList: getFilteredRouteList(state.routeList, state.timeLength, stationName),
 			};
 		case "setSelectedRoute":
 			return {
 				...state,
+				startingTime: +getNowAsBaseDay(),
 				selectedRoute: action.payload,
 			};
     default:

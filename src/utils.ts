@@ -1,4 +1,4 @@
-import * as dayjs from "dayjs";
+import dayjs from "dayjs/esm";
 import { BaseDay } from "./constants";
 
 const queryParams = new URLSearchParams(window.location.search);
@@ -7,6 +7,10 @@ const globalConfig = {
 	isTimeShifting: false,
 };
 globalConfig.isTimeShifting = queryParams.has("time-shifting");
+
+export function getCityEnWikipediaUrl(city: string) {
+	return `https://en.m.wikipedia.org/wiki/${city}`;
+}
 
 export function getNowAsBaseDay() {
 	let now = dayjs();

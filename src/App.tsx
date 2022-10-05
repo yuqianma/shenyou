@@ -1,5 +1,5 @@
 import { useReducer, useEffect, useRef } from "react";
-import { MapCanvas, StartDialog } from "./components";
+import { MapCanvas, StartDialog, InfoPane } from "./components";
 import "./App.css";
 import { reducer, initialState, StoreContext } from "./store";
 import { getNowAsBaseDay } from "./utils";
@@ -54,19 +54,31 @@ function App() {
     [rootState.playing]
   );
 
-  const { time, stationList, filteredRouteList, selectedRoute } = rootState;
+  const { time, startingTime, timeLength, stationList, selectedStation, filteredRouteList, selectedRoute } = rootState;
 
   return (
     <StoreContext.Provider value={dispatch}>
       {rootState.timeLength === 0  ? (
         <StartDialog />
       ) : (
-        <MapCanvas
-          time={time}
-          stationList={stationList}
-          filteredRouteList={filteredRouteList}
-          selectedRoute={selectedRoute}
-        />
+        <>
+          <InfoPane
+            time={time}
+            startingTime={startingTime}
+            timeLength={timeLength}
+            selectedStation={selectedStation}
+            filteredRouteList={filteredRouteList}
+            selectedRoute={selectedRoute}
+          />
+          <div className="map-container">
+            <MapCanvas
+              time={time}
+              stationList={stationList}
+              filteredRouteList={filteredRouteList}
+              selectedRoute={selectedRoute}
+            />
+          </div>
+        </>
       )}
     </StoreContext.Provider>
   );
