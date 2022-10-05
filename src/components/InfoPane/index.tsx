@@ -24,7 +24,7 @@ export const InfoPane = ({
 }: Props) => {
 	// const dispatch = useContext(StoreContext);
 
-	const duration = dayjs.duration(dayjs(startingTime + timeLength).diff(dayjs(time)));
+	// const duration = dayjs.duration(dayjs(startingTime + timeLength).diff(dayjs(time)));
 
 	// console.log(dayjs(startingTime + timeLength).format("YYYY-MM-DD HH:mm:ss"), dayjs(time).format("YYYY-MM-DD HH:mm:ss"));
 
@@ -50,7 +50,7 @@ export const InfoPane = ({
 			<div className="text-info">
 				<div className="text-secondary">Train:</div>
 				<div className="text-primary">{ trainCode }</div>
-				<div className="countdown">{duration.format("HH:mm:ss")}</div>
+				{/* <div className="countdown">{duration.format("HH:mm:ss")}</div> */}
 			</div>
 		)}
 		<div style={{ height: "100%" }}>
